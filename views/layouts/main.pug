@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+  head
+    include ../partials/head.pug
+    block styles
+  body
+    .wrapper
+      .main-header
+        include ../partials/header.pug
+        include ../partials/navbar.pug
+      include ../partials/sidebar.pug
+      .main-panel
+        .container
+          block content
+        include ../partials/footer.pug
+    include ../partials/scripts.pug
+    block scripts

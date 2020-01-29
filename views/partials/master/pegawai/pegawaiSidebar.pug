@@ -1,0 +1,6 @@
+mixin leftMenuItem(active, url, name)
+  a.list-group-item(href=`${active ? '#' : url}` class=`${active ? 'active' : ''}`) #{name}
+
+.list-group.list-group-bordered
+  each menu in pegawaiMenus
+    +leftMenuItem(menu.active, menu.url, menu.label)
