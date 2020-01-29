@@ -1,4 +1,4 @@
-# HR Information System for RSI Sultan Agung Semarang
+# Node TS Starter
 
 ## Instalasi
 
@@ -19,7 +19,9 @@
 1. Gunakan `Visual Studio Code`
 2. Install package `TSLint (deprecated)`, iya yang deprecated
 
-## Migrasi dan Seeding Data
+## Best Practices Development
 
-1. Jalankan `yarn db:setup`
-2. Untuk mengubah data awal, tambah file di folder `seeders`
+1. Ceritanya kaya develop HMVC tapi view nya masih tetep satu folder
+2. Semua module di taro src/modules/namaModules
+3. Didalam folder tersebut mungkin bisa dikasih folder controller, middleware, dan lainya
+4. penamaan file sesuai type namafile.tipe.ts contoh namaservice.service.ts atau namacontroller.service.ts
