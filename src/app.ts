@@ -2,12 +2,13 @@ import chalk from 'chalk'
 import dotenv, { config } from 'dotenv'
 import express from 'express'
 import moment from 'moment'
-import path, { resolve } from 'path'
+import { resolve } from 'path'
 import 'reflect-metadata'
 import controllerLoader from './controllerLoader'
 import middlewareLoader from './middlewareLoader'
 import modelLoader from './modelLoader'
 import { sequelize } from './modules/core/config/database'
+import { ResponseService } from './modules/core/service/responce.service'
 
 config({ path: resolve(__dirname, '../../.env.example') })
 
@@ -22,6 +23,9 @@ class App {
     this.settings()
     middlewareLoader(this.app)
     controllerLoader(this.app)
+    this.app.use((err: any, req: any, res: any, next: any) => {
+      ResponseService.error(res, err)
+    })
   }
 
   public async listen() {
@@ -34,9 +38,6 @@ class App {
   private settings() {
     this.app.set('host', '0.0.0.0')
     this.app.set('port', process.env.PORT || 8080)
-    this.app.set('views', path.join(__dirname, '../views'))
-    this.app.set('view engine', 'pug')
-    this.app.use('/assets', express.static('views/assets'))
   }
 }
 const server = new App()

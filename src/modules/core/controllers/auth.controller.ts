@@ -1,33 +1,16 @@
-import { Request, Response, Router } from 'express'
-import { isAuthenticated, passport } from '../config/passport'
+import { Router } from 'express'
+import { AuthService } from '../service/auth.service'
+import { ResponseService } from '../service/responce.service'
+import { asyncHandler } from './../../../helpers/asyncHandler'
+
 const authRouter = Router()
-
-authRouter.get(
-  '/login',
-  async (req: Request, res: Response) => {
-    res.render('login.pug', {
-      errors: req.flash('error'),
-    })
-  },
-)
-
-authRouter.get(
-  '/logout',
-  isAuthenticated,
-  async (req: Request, res: Response) => {
-    req.session.destroy((error: Error) => {
-      if (error) { throw Error(error.message) }
-      res.redirect('/auth/login')
-    })
-  },
-)
 
 authRouter.post(
   '/login',
-  passport.authenticate('local', {
-    failureFlash: true,
-    failureRedirect: '/auth/login',
-    successRedirect: '/',
+  asyncHandler(async (req: any, res: any) => {
+    const { username, password } = req.body
+    const data = await AuthService.login(username, password)
+    return ResponseService.success(res, 'Berhasil Login', data)
   }),
 )
 

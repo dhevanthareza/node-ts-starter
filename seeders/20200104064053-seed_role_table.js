@@ -4,40 +4,41 @@ const bcrypt = require('bcrypt-nodejs');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('User', [
+    return queryInterface.bulkInsert('Role', [
       {
-        username: 'admin',
-        firstname: 'Admin',
-        lastname: 'Ganteng',
-        password: bcrypt.hashSync('secret'),
-        roleId: 1,
+        id: 1,
+        name: 'admin',
+        text: 'Admin',
         createdAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
         updatedAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       },
       {
-        username: 'teacher',
-        firstname: 'Guru',
-        lastname: 'Idaman',
-        password: bcrypt.hashSync('secret'),
-        roleId: 2,
+        id: 2,
+        name: 'teacher',
+        text: 'Teacher',
         createdAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
         updatedAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       },
       {
-        username: 'student',
-        firstname: 'Murid',
-        lastname: 'Jagoan',
-        password: bcrypt.hashSync('secret'),
-        roleId: 4,
+        id: 3,
+        name: 'student',
+        text: 'Student',
         createdAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
         updatedAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       },
       {
-        username: 'studentpremium',
-        firstname: 'Murid',
-        lastname: 'Kaya',
-        password: bcrypt.hashSync('secret'),
-        roleId: 5,
+        id: 4,
+        name: 'studentFree',
+        text: 'Free Student',
+        parentId: 3,
+        createdAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+        updatedAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+      },
+      {
+        id: 5,
+        name: 'studentPremium',
+        text: 'Premium Student',
+        parentId: 3,
         createdAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
         updatedAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       },
@@ -45,6 +46,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-   return queryInterface.bulkDelete('User', null, {});
+   return queryInterface.bulkDelete('Role', null, {});
   }
 };

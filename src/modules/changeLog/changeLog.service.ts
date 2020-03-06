@@ -1,6 +1,6 @@
 import { updatedDiff } from 'deep-object-diff'
 import { logger } from '../../helpers/logger'
-import { ChangeLog } from './changeLog.model'
+import ChangeLog from './changeLog.model'
 
 export enum ChangeLogModule {
   master,
@@ -19,11 +19,11 @@ interface IChangeLogObject {
 export class ChangeLogService {
 
   public static getInstance(): ChangeLogService {
-      if (!ChangeLogService.instance) {
-        ChangeLogService.instance = new ChangeLogService()
-      }
+    if (!ChangeLogService.instance) {
+      ChangeLogService.instance = new ChangeLogService()
+    }
 
-      return ChangeLogService.instance
+    return ChangeLogService.instance
   }
 
   private static instance: ChangeLogService
