@@ -1,5 +1,5 @@
 import { updatedDiff } from 'deep-object-diff'
-import { logger } from '../../helpers/logger'
+import { logger } from '../core/helpers/logger'
 import ChangeLog from './changeLog.model'
 
 export enum ChangeLogModule {

@@ -25,5 +25,5 @@
     "typeRoots": ["./node_modules/*/node_modules/@types/"],
     "noImplicitUseStrict": true
   },
-  "include": ["src/**/*", "views"]
+  "include": ["src/**/*", "views", "src", "decs.d.ts"]
 }

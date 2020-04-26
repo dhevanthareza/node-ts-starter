@@ -1,4 +1,4 @@
-import { UserRepository } from './../../user/user.repository';
+import { UserRepository } from '../../management/user/user.repository';
 
 export class AuthService {
   public static async login(username: string, password: string) {

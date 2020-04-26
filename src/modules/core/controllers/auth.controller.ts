@@ -1,7 +1,7 @@
 import { Router } from 'express'
+import { asyncHandler } from '../helpers/asyncHandler'
 import { AuthService } from '../service/auth.service'
-import { ResponseService } from '../service/responce.service'
-import { asyncHandler } from './../../../helpers/asyncHandler'
+import { ResponseService } from '../service/response.service'
 
 const authRouter = Router()
 

@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt-nodejs'
-import jwt from 'jsonwebtoken'
-import { config } from './../../../config/config';
-import ErrorHandler from './../../helpers/errorHandler';
-import User from './user.model'
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { config } from '../core/config/config';
+import ErrorHandler from '../core/helpers/errorHandler';
+import User from './user.model';
 
 export class UserRepository {
   public static async create(data: User) {
@@ -21,11 +21,12 @@ export class UserRepository {
   public static async findByCredentials(username: string, password: string) {
     const user = await User.findOne({ where: { username } })
     if (!user) {
-      throw new ErrorHandler(404, 'Username tidak ditemukan')
+      throw new ErrorHandler({ message: 'Username tidak ditemukan' })
     }
     const isPasswordMatch = bcrypt.compareSync(password, user.password)
+    console.log(isPasswordMatch)
     if (!isPasswordMatch) {
-      throw new ErrorHandler(401, 'Password Salah')
+      throw new ErrorHandler({ message: 'Password Salah' })
     }
     return user
   }

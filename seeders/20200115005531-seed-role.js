@@ -1,18 +1,19 @@
 'use strict';
 const moment = require('moment');
-const bcrypt = require('bcrypt');
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      'User',
+      'Role',
       [
         {
-          username: 'admin',
-          firstname: 'Admin',
-          lastname: 'Ganteng',
-          password: bcrypt.hashSync('secret', 10),
-          roleId: 1,
+          code: 'admin',
+          name: 'Admin',
+          createdAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+          updatedAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+        },
+        {
+          code: 'user',
+          name: 'User',
           createdAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
           updatedAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
         },
@@ -22,6 +23,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('User', null, {});
+    return queryInterface.bulkDelete('Role', null, {});
   },
 };

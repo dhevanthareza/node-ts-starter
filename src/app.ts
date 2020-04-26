@@ -8,7 +8,7 @@ import controllerLoader from './controllerLoader'
 import middlewareLoader from './middlewareLoader'
 import modelLoader from './modelLoader'
 import { sequelize } from './modules/core/config/database'
-import { ResponseService } from './modules/core/service/responce.service'
+import { ResponseService } from './modules/core/service/response.service'
 
 config({ path: resolve(__dirname, '../../.env.example') })
 
@@ -23,8 +23,10 @@ class App {
     this.settings()
     middlewareLoader(this.app)
     controllerLoader(this.app)
-    this.app.use((err: any, req: any, res: any, next: any) => {
-      ResponseService.error(res, err)
+    this.app.use((error: any, req: any, res: any, next: any) => {
+      const message = error.message || 'Internal Server Error'
+      const code = error.code || 500
+      ResponseService.error({ res, message, code })
     })
   }
 
