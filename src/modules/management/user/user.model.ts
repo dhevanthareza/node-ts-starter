@@ -4,21 +4,18 @@ import Role from './../role/role.model'
 @Table({
   tableName: 'User',
   timestamps: true,
-  paranoid: true
+  paranoid: true,
 })
 class User extends Model<User> {
   @Unique
   @Column
-  public username: string
+  public phone: string
 
   @Column
   public email: string
 
   @Column
-  public firstName: string
-
-  @Column
-  public lastName: string
+  public fullname: string
 
   @Column
   get password(): string {
@@ -30,10 +27,10 @@ class User extends Model<User> {
 
   @ForeignKey(() => Role)
   @Column
-  public roleId: number;
+  public RoleId: number;
 
-  @BelongsTo(() => Role, 'role')
-  public role: User;
+  @BelongsTo(() => Role)
+  public Role: User;
 }
 
 export default User

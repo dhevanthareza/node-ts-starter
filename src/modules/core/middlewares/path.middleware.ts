@@ -6,3 +6,4 @@ const pathMiddleware = (req: Request, res: Response, next: NextFunction) => {
 }
 
 export { pathMiddleware }
+

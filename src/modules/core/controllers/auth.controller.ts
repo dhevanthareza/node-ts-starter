@@ -3,20 +3,16 @@ import { asyncHandler } from '../helpers/asyncHandler'
 import { AuthService } from '../service/auth.service'
 import { ResponseService } from '../service/response.service'
 
-const authRouter = Router()
-
-authRouter.post(
+const AuthController = Router()
+AuthController.post(
   '/login',
   asyncHandler(async (req: any, res: any) => {
-    const { username, password } = req.body
+    const { password } = req.body
+    const username= req.body.email || req.body.phone
     const data = await AuthService.login(username, password)
-    return ResponseService.success(res, 'Berhasil Login', data)
+    return ResponseService.success(res, data, 'Berhasil Login')
   }),
 )
 
-const authController = Router()
-
-authController.use('/auth', authRouter)
-
-export { authController }
+export default AuthController
 

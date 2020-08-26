@@ -4,11 +4,11 @@ import express from 'express'
 import moment from 'moment'
 import { resolve } from 'path'
 import 'reflect-metadata'
-import controllerLoader from './controllerLoader'
 import middlewareLoader from './middlewareLoader'
 import modelLoader from './modelLoader'
 import { sequelize } from './modules/core/config/database'
 import { ResponseService } from './modules/core/service/response.service'
+import controllerLoader from './routeLoader'
 
 config({ path: resolve(__dirname, '../../.env.example') })
 
@@ -25,8 +25,10 @@ class App {
     controllerLoader(this.app)
     this.app.use((error: any, req: any, res: any, next: any) => {
       const message = error.message || 'Internal Server Error'
-      const code = error.code || 500
-      ResponseService.error({ res, message, code })
+      const code = error.code || 'SERVER_ERROR'
+      const httpCode = error.httpCode || 500
+      const data = error.data || {}
+      ResponseService.error({ res, message, code, data, httpCode })
     })
   }
 

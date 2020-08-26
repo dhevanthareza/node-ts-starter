@@ -6,14 +6,16 @@ module.exports = {
       'Role',
       [
         {
-          code: 'admin',
-          name: 'Admin',
+          id: 1,
+          name: 'Developer',
+          code: 'developer',
           createdAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
           updatedAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
         },
         {
-          code: 'user',
-          name: 'User',
+          id: 2,
+          name: 'Admin',
+          code: 'developer',
           createdAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
           updatedAt: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
         },
