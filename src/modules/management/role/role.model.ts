@@ -1,5 +1,7 @@
-import { BelongsTo, Column, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, BelongsToMany, Column, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
+import Permission from '../permission/permission.model';
 import User from '../user/user.model';
+import RolePermission from './rolePermission.model';
 
 @Table({
   tableName: 'Role',
@@ -10,8 +12,14 @@ class Role extends Model<Role>{
   @Column
   public name: string
   
+  @Column
+  public code: string
+  
   @HasMany(() => User)
   public Users: User[];
+
+  @BelongsToMany(() => Permission, () => RolePermission)
+  Permission: Permission[];
 
   @ForeignKey(() => User)
   @Column

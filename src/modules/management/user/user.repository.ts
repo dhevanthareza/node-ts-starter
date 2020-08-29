@@ -3,24 +3,59 @@ import jwt from 'jsonwebtoken';
 import moment from 'moment';
 import { Op } from 'sequelize';
 import ErrorHandler from '../../core/helpers/errorHandler';
+import Role from '../role/role.model';
 import * as config from './../../../config.json';
 import User from './user.model';
 
 export class UserRepository {
   public static async get(id: string): Promise<User> {
-    const data = await User.findByPk(id);
+    const data = await User.findByPk(id, {
+      attributes: {
+        exclude: ['password'],
+      },
+    });
     return data;
   }
   public static async getAll(): Promise<User[]> {
-    const data = await User.findAll();
+    const data = await User.findAll({
+      attributes: {
+        exclude: ['password'],
+      },
+    });
     return data;
   }
-  public static async datatable(search: string): Promise<User[]> {
-    const data = await User.findAll({
-      where: {
-        username: search,
+  public static async datatable(search: string = '', limit: string = '5', page: string = '1') {
+    const data = await User.findAndCountAll({
+      attributes: {
+        exclude: ['password'],
       },
-      attributes: ['id', 'username', 'email', 'firstname', 'lastname', 'roleId'],
+      include: [{ model: Role }],
+      offset: parseInt(limit, 10) * (parseInt(page, 10) - 1),
+      limit: parseInt(limit, 10),
+      where: {
+        [Op.or]: [
+          {
+            email: {
+              [Op.like]: `%${search}%`,
+            },
+          },
+          {
+            phone: {
+              [Op.like]: `%${search}%`,
+            },
+          },
+          {
+            fullname: {
+              [Op.like]: `%${search}%`,
+            },
+          },
+          {
+            '$Role.name$': {
+              [Op.like]: `%${search}%`,
+            },
+          },
+        ],
+      },
     });
     return data;
   }

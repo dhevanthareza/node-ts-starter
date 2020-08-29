@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('PermissionRole', {
+    return queryInterface.createTable('RolePermission', {
       id: {
         allowNull: false,
         autoIncrement: true,

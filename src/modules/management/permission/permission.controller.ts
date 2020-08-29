@@ -17,7 +17,7 @@ PermissionController.get(
 PermissionController.get(
   '/datatable',
   asyncHandler(async (req: AppRequest, res: Response) => {
-    const Permission = await PermissionRepository.datatable(req.query.search);
+    const Permission = await PermissionRepository.datatable(req.query.search, req.query.limit, req.query.page);
     return ResponseService.success(res, Permission, 'Berhasil mengambil daftar Permission', 'SUCCESS')
   }),
 );

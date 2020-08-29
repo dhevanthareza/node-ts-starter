@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import { BelongsTo, Column, ForeignKey, Model, Table, Unique } from 'sequelize-typescript'
+import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript'
 import Role from './../role/role.model'
 @Table({
   tableName: 'User',
@@ -7,7 +7,6 @@ import Role from './../role/role.model'
   paranoid: true,
 })
 class User extends Model<User> {
-  @Unique
   @Column
   public phone: string
 

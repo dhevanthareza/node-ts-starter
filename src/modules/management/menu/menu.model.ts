@@ -35,7 +35,7 @@ class Menu extends Model<Menu> {
   public ParentId: number;
 
   @BelongsTo(() => Menu, 'ParentId')
-  public parent: Menu;
+  public Parent: Menu;
 
   @ForeignKey(() => User)
   @Column

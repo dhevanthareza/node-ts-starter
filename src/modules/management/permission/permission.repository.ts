@@ -1,6 +1,8 @@
 import moment from 'moment';
+import { Op } from 'sequelize';
+import Menu from '../menu/menu.model';
 import User from '../user/user.model';
-import Permission from './Permission.model';
+import Permission from './permission.model';
 
 export class PermissionRepository {
   public static async get(id: string): Promise<Permission> {
@@ -11,10 +13,23 @@ export class PermissionRepository {
     const data = await Permission.findAll();
     return data;
   }
-  public static async datatable(search: string): Promise<Permission[]> {
-    const data = await Permission.findAll({
+  public static async datatable(
+    search: string = '',
+    limit: string = '5',
+    page: string = '1',
+  ) {
+    const data = await Permission.findAndCountAll({
+      offset: parseInt(limit, 10) * (parseInt(page, 10) - 1),
+      limit: parseInt(limit, 10),
+      include: [{model: Menu}],
       where: {
-        Permissionname: search,
+        [Op.or]: [
+          {
+            name: {
+              [Op.like]: `%${search}%`,
+            },
+          },
+        ],
       },
     });
     return data;

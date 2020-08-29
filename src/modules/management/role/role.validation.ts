@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import Role from './Role.model';
+import Role from './role.model';
 
 const RoleCreateValidation = [
   body('code')

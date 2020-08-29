@@ -1,4 +1,5 @@
 import { body } from 'express-validator';
+import { Op } from 'sequelize';
 import Menu from './menu.model';
 
 const MenuCreateValidation = [
@@ -10,24 +11,25 @@ const MenuCreateValidation = [
     .not()
     .isEmpty()
     .withMessage('Nama menu diperlukan'),
-  body('path')
-    .not()
-    .isEmpty()
-    .withMessage('Path menu diperlukan'),
-  body('code').custom(async code => {
-    return Menu.findOne({ where: { code } }).then(menu => {
-      if(menu) {
-        return Promise.reject('Kode sudah digunakan')
+  body('code').custom(async (code, { req }) => {
+    const where = req.params.id
+      ? {
+          where: { code, id: { [Op.not]: req.params.id } },
+        }
+      : { where: { code } };
+    return Menu.findOne(where).then(menu => {
+      if (menu) {
+        return Promise.reject('Kode sudah digunakan');
       }
     });
   }),
-  body('path').custom(async path => {
-    return Menu.findOne({ where: { path } }).then(path => {
-      if(path) {
-        return Promise.reject('Path sudah digunakan')
-      }
-    });
-  }),
+  // body('path').custom(async path => {
+  //   return Menu.findOne({ where: { path } }).then(path => {
+  //     if(path) {
+  //       return Promise.reject('Path sudah digunakan')
+  //     }
+  //   });
+  // }),
 ];
 
 export { MenuCreateValidation };

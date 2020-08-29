@@ -1,8 +1,8 @@
 import { BelongsTo, BelongsToMany, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
 import Menu from '../menu/menu.model';
 import Role from '../role/role.model';
+import RolePermission from '../role/rolePermission.model';
 import User from '../user/user.model';
-import PermissionRole from './permissionRole.model';
 
 @Table({
   tableName: 'Permission',
@@ -23,7 +23,7 @@ class Permission extends Model<Permission> {
   @BelongsTo(() => Menu, 'MenuId')
   public Menu: Menu
 
-  @BelongsToMany(() => Role, () => PermissionRole)
+  @BelongsToMany(() => Role, () => RolePermission)
   public Roles: Role[];
 
   @ForeignKey(() => User)

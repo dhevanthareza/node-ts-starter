@@ -1,15 +1,14 @@
 import moment from 'moment';
 import { Op } from 'sequelize';
-import User from '../user/user.model';
-import Role from './role.model';
+import modelName from './moduleName.model';
 
-export class RoleRepository {
-  public static async get(id: string): Promise<Role> {
-    const data = await Role.findByPk(id);
+export class repositoryNameRepository {
+  public static async get(id: string): Promise<modelName> {
+    const data = await modelName.findByPk(id);
     return data;
   }
-  public static async getAll(): Promise<Role[]> {
-    const data = await Role.findAll();
+  public static async getAll(): Promise<modelName[]> {
+    const data = await modelName.findAll();
     return data;
   }
   public static async datatable(
@@ -17,7 +16,7 @@ export class RoleRepository {
     limit: string = '5',
     page: string = '1',
   ) {
-    const data = await Role.findAndCountAll({
+    const data = await modelName.findAndCountAll({
       offset: parseInt(limit, 10) * (parseInt(page, 10) - 1),
       limit: parseInt(limit, 10),
       where: {
@@ -32,33 +31,33 @@ export class RoleRepository {
     });
     return data;
   }
-  public static async create(User: User, payload: Role, options: any = {}) {
-    const data = await Role.create({
+  public static async create(user: User, payload: modelName, options: any = {}) {
+    const data = await modelName.create({
       ...payload,
-      createdBy: User.id,
-      updatedBy: User.id,
+      createdBy: user.id,
+      updatedBy: user.id,
     }, {...options});
     return data;
   }
-  public static async update(user: User, id: string, data: Role): Promise<Role> {
-    await Role.update(
+  public static async update(user: User, id: string, data: modelName): Promise<modelName> {
+    await modelName.update(
       {
         ...data,
         updatedBy: user.id,
       },
       { where: { id } },
     );
-    const updatedRole = await Role.findByPk(id);
-    return updatedRole;
+    const updatedmodelName = await modelName.findByPk(id);
+    return updatedmodelName;
   }
   public static async delete(user: User, id: string): Promise<string> {
-    await Role.update(
+    await modelName.update(
       {
         deletedBy: user.id,
         deletedAt: moment().format(),
       },
       { where: { id } },
     );
-    return 'Role Deleted Successfully';
+    return 'titleName Deleted Successfully';
   }
 }

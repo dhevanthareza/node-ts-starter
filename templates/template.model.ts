@@ -1,21 +1,27 @@
 import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
-import Role from '../role/role.model';
-import User from './../user/user.model';
-import Permission from './permission.model';
 
 @Table({
-  tableName: 'PermissionRole',
+  tableName: 'TableName',
   timestamps: true,
   paranoid: true,
 })
-class PermissionRole extends Model<PermissionRole> {
-  @ForeignKey(() => Permission)
-  @Column
-  public PermissionId: number
+class modelName extends Model<modelName> {
+  // Unique column examole
+  // @Unique
+  // @Column
+  // public code: string;
 
-  @ForeignKey(() => Role)
-  @Column
-  public RoleId: number
+  // Basic column example
+  // @Column
+  // public name: string;
+
+  //Has Many Example
+  // @HasMany(() => Permission)
+  // public Permissions: Permission[];
+
+  // Many to many example
+  // @BelongsToMany(() => Permission, () => RolePermission)
+  // Permission: Permission[];
 
   @ForeignKey(() => User)
   @Column
@@ -39,5 +45,5 @@ class PermissionRole extends Model<PermissionRole> {
   public userDelete: User;
 }
 
-export default PermissionRole;
+export default modelName;
 
