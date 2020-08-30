@@ -15,22 +15,22 @@ const RoleController = Router();
 RoleController.get(
   '/',
   asyncHandler(async (req: any, res: Response) => {
-    const Role = await RoleRepository.getAll();
-    return ResponseService.success(res, Role, 'Berhasil mengambil daftar Role', 'SUCCESS');
+    const role = await RoleRepository.getAll();
+    return ResponseService.success(res, role, 'Berhasil mengambil daftar Role', 'SUCCESS');
   }),
 );
 RoleController.get(
   '/datatable',
   asyncHandler(async (req: AppRequest, res: Response) => {
-    const Role = await RoleRepository.datatable(req.query.search);
-    return ResponseService.success(res, Role, 'Berhasil mengambil daftar Role', 'SUCCESS');
+    const role = await RoleRepository.datatable(req.query.search);
+    return ResponseService.success(res, role, 'Berhasil mengambil daftar Role', 'SUCCESS');
   }),
 );
 RoleController.get(
   '/:id',
   asyncHandler(async (req: any, res: Response) => {
-    const Role = await RoleRepository.get(req.params.id);
-    return ResponseService.success(res, Role, 'Berhasil mengambil Role', 'SUCCESS');
+    const role = await RoleRepository.get(req.params.id);
+    return ResponseService.success(res, role, 'Berhasil mengambil Role', 'SUCCESS');
   }),
 );
 RoleController.get(
@@ -59,12 +59,12 @@ RoleController.delete(
   asyncHandler(async (req: any, res: Response) => {
     const rolePermission = await RolePermission.update({
       deletedBy: req.user.id,
-      deletedAt: moment().format()
+      deletedAt: moment().format(),
     }, {
       where: {
         PermissionId: req.params.permissionId,
-        RoleId: req.params.id
-      }
+        RoleId: req.params.id,
+      },
     })
     return ResponseService.success(res, rolePermission, 'Berhasil mengambil Role', 'SUCCESS');
   }),
@@ -73,22 +73,22 @@ RoleController.post(
   '/',
   asyncHandler(async (req: any, res: Response) => {
     await ValidateService(req, RoleCreateValidation);
-    const Role = await RoleRepository.create(req.user, req.body);
-    return ResponseService.success(res, Role, 'Berhasil membuat Role', 'SUCCESS');
+    const role = await RoleRepository.create(req.user, req.body);
+    return ResponseService.success(res, role, 'Berhasil membuat Role', 'SUCCESS');
   }),
 );
 RoleController.put(
   '/:id',
   asyncHandler(async (req: any, res: Response) => {
-    const Role = await RoleRepository.update(req.user, req.params.id, req.body);
-    return ResponseService.success(res, Role, 'Berhasil update Role', 'SUCCESS');
+    const role = await RoleRepository.update(req.user, req.params.id, req.body);
+    return ResponseService.success(res, role, 'Berhasil update Role', 'SUCCESS');
   }),
 );
 RoleController.delete(
   '/:id',
   asyncHandler(async (req: any, res: Response) => {
-    const Role = await RoleRepository.delete(req.user, req.params.id);
-    return ResponseService.success(res, Role, 'Berhasil menghapus Role', 'SUCCESS');
+    const role = await RoleRepository.delete(req.user, req.params.id);
+    return ResponseService.success(res, role, 'Berhasil menghapus Role', 'SUCCESS');
   }),
 );
 

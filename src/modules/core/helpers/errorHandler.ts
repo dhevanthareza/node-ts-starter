@@ -7,12 +7,12 @@ class ApplicationError extends Error {
     message = 'Internal Server Error',
     code = 'SERVER_ERROR',
     httpCode = 500,
-    data = {}
+    data = {},
   }: {
     message: string,
     code?: any,
     data?: any,
-    httpCode?: number
+    httpCode?: number,
   }) {
     super();
 

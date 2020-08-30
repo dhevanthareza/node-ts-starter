@@ -32,7 +32,7 @@ export class MenuRepository {
     });
     return data;
   }
-  public static async create(User: User, payload: Menu, options: any = {}) {
+  public static async create(user: User, payload: Menu, options: any = {}) {
     const transaction = (await options.transaction)
       ? options.transaction
       : await sequelize.transaction();
@@ -40,16 +40,16 @@ export class MenuRepository {
       const data = await Menu.create(
         {
           ...payload,
-          createdBy: User.id,
-          updatedBy: User.id,
+          createdBy: user.id,
+          updatedBy: user.id,
         },
         {
           transaction,
           ...options,
         },
       );
-      if (payload.path != null && payload.path != '' && payload.path != '-') {
-        const permissionList = PermissionList(data.id, User.id);
+      if (payload.path !== null && payload.path !== '' && payload.path !== '-') {
+        const permissionList = PermissionList(data.id, user.id);
         await Permission.bulkCreate(permissionList, { returning: true, transaction });
       }
       await transaction.commit();

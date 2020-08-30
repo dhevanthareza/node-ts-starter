@@ -11,7 +11,7 @@ const UserCreateValidations = [
     .withMessage('minimal 10 karakter'),
   body('email').custom(async email => {
     return User.findOne({ where: { email } }).then(user => {
-      if(user) {
+      if (user) {
         return Promise.reject('Email sudah digunakan')
       }
     });

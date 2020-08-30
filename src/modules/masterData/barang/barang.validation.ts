@@ -16,7 +16,7 @@ const barangCreateValidation = [
     .not()
     .isEmpty()
     .withMessage('Harga jual diperlukan'),
-  //custom validation example
+  //  custom validation example
   // body('code').custom(async code => {
   //   return Role.findOne({ where: { code } }).then(menu => {
   //     if(menu) {
@@ -25,7 +25,7 @@ const barangCreateValidation = [
   //   });
   // }),
   body('hargaJual').custom(async (hargaJual, { req }) => {
-    if(hargaJual < req.body.hargaPokok) {
+    if (  hargaJual < req.body.hargaPokok) {
       throw new Error('Harga jual harus lebih besar dari harga pokok')
     }
     return true;

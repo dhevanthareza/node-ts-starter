@@ -34,11 +34,11 @@ export class PermissionRepository {
     });
     return data;
   }
-  public static async create(User: User, payload: Permission) {
+  public static async create(user: User, payload: Permission) {
     const data = await Permission.create({
       ...payload,
-      createdBy: User.id,
-      updatedBy: User.id,
+      createdBy: user.id,
+      updatedBy: user.id,
     });
     return data;
   }
@@ -53,10 +53,10 @@ export class PermissionRepository {
     const updatedPermission = await Permission.findByPk(id);
     return updatedPermission;
   }
-  public static async delete(Permission: Permission, id: string): Promise<string> {
+  public static async delete(permission: Permission, id: string): Promise<string> {
     await Permission.update(
       {
-        deletedBy: Permission.id,
+        deletedBy: permission.id,
         deletedAt: moment().format(),
       },
       { where: { id } },

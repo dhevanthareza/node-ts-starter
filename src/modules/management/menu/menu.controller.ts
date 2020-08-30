@@ -14,8 +14,8 @@ const MenuController = Router();
 MenuController.get(
   '/',
   asyncHandler(async (req: any, res: Response) => {
-    const Menu = await MenuRepository.getAll();
-    return ResponseService.success(res, Menu, 'Berhasil mengambil daftar menu', 'SUCCESS');
+    const menu = await MenuRepository.getAll();
+    return ResponseService.success(res, menu, 'Berhasil mengambil daftar menu', 'SUCCESS');
   }),
 );
 MenuController.get(
@@ -51,8 +51,8 @@ MenuController.get(
 MenuController.get(
   '/datatable',
   asyncHandler(async (req: AppRequest, res: Response) => {
-    const Menu = await MenuRepository.datatable(req.query.search, req.query.limit, req.query.page);
-    return ResponseService.success(res, Menu, 'Berhasil mengambil daftar menu', 'SUCCESS');
+    const menu = await MenuRepository.datatable(req.query.search, req.query.limit, req.query.page);
+    return ResponseService.success(res, menu, 'Berhasil mengambil daftar menu', 'SUCCESS');
   }),
 );
 MenuController.get(
@@ -114,8 +114,8 @@ MenuController.get(
 MenuController.get(
   '/:id',
   asyncHandler(async (req: any, res: Response) => {
-    const Menu = await MenuRepository.get(req.query.id);
-    return ResponseService.success(res, Menu, 'Berhasil mengambil menu', 'SUCCESS');
+    const menu = await MenuRepository.get(req.query.id);
+    return ResponseService.success(res, menu, 'Berhasil mengambil menu', 'SUCCESS');
   }),
 );
 MenuController.post(
@@ -123,23 +123,23 @@ MenuController.post(
   asyncHandler(async (req: any, res: Response) => {
     req.Menu = { id: 1 };
     await ValidateService(req, MenuCreateValidation);
-    const Menu = await MenuRepository.create(req.user, req.body);
-    return ResponseService.success(res, Menu, 'Berhasil membuat menu', 'SUCCESS');
+    const menu = await MenuRepository.create(req.user, req.body);
+    return ResponseService.success(res, menu, 'Berhasil membuat menu', 'SUCCESS');
   }),
 );
 MenuController.put(
   '/:id',
   asyncHandler(async (req: any, res: Response) => {
     await ValidateService(req, MenuCreateValidation);
-    const Menu = await MenuRepository.update(req.user, req.params.id, req.body);
-    return ResponseService.success(res, Menu, 'Berhasil update menu', 'SUCCESS');
+    const menu = await MenuRepository.update(req.user, req.params.id, req.body);
+    return ResponseService.success(res, menu, 'Berhasil update menu', 'SUCCESS');
   }),
 );
 MenuController.delete(
   '/:id',
   asyncHandler(async (req: any, res: Response) => {
-    const Menu = await MenuRepository.delete(req.user, req.params.id);
-    return ResponseService.success(res, Menu, 'Berhasil menghapus menu', 'SUCCESS');
+    const menu = await MenuRepository.delete(req.user, req.params.id);
+    return ResponseService.success(res, menu, 'Berhasil menghapus menu', 'SUCCESS');
   }),
 );
 

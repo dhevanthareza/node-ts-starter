@@ -11,8 +11,8 @@ const PermissionCreateValidation = [
     .isEmpty()
     .withMessage('Menu Permission diperlukan'),
   body('name').custom(async code => {
-    return Permission.findOne({ where: { code } }).then(Permission => {
-      if(Permission) {
+    return Permission.findOne({ where: { code } }).then(permission => {
+      if (permission) {
         return Promise.reject('Kode sudah digunakan')
       }
     });

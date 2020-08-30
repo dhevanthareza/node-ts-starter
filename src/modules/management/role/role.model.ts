@@ -19,7 +19,7 @@ class Role extends Model<Role>{
   public Users: User[];
 
   @BelongsToMany(() => Permission, () => RolePermission)
-  Permission: Permission[];
+  public Permission: Permission[];
 
   @ForeignKey(() => User)
   @Column

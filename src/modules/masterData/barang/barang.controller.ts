@@ -1,6 +1,7 @@
 import { Response, Router } from 'express';
 import { AppRequest } from '../../../typings/request';
 import { asyncHandler } from '../../core/helpers/asyncHandler';
+import { fileMiddleware } from '../../core/middlewares/file.middleware';
 import { ResponseService } from '../../core/service/response.service';
 import ValidateService from '../../core/service/validate.service';
 import { MasterBarangRepository } from './barang.repository';
@@ -30,7 +31,11 @@ MasterBarangController.get(
 );
 MasterBarangController.post(
   '/',
+  fileMiddleware({ fields: [{ name: 'image', maxCount: 1 }] }),
   asyncHandler(async (req: any, res: Response) => {
+    if (req.image) {
+      req.body.image = req.image.location;
+    }
     await ValidateService(req, barangCreateValidation);
     const barang = await MasterBarangRepository.create(req.user, req.body);
     return ResponseService.success(res, barang, 'Berhasil membuat Data barang', 'SUCCESS');

@@ -12,7 +12,7 @@ const RoleCreateValidation = [
     .withMessage('Nama menu diperlukan'),
   body('code').custom(async code => {
     return Role.findOne({ where: { code } }).then(menu => {
-      if(menu) {
+      if (menu) {
         return Promise.reject('Kode sudah digunakan')
       }
     });

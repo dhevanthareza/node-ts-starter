@@ -32,11 +32,11 @@ export class RoleRepository {
     });
     return data;
   }
-  public static async create(User: User, payload: Role, options: any = {}) {
+  public static async create(user: User, payload: Role, options: any = {}) {
     const data = await Role.create({
       ...payload,
-      createdBy: User.id,
-      updatedBy: User.id,
+      createdBy: user.id,
+      updatedBy: user.id,
     }, {...options});
     return data;
   }

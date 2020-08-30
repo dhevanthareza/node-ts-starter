@@ -25,8 +25,11 @@ class MasterBarang extends Model<MasterBarang> {
   
   @Column
   public qty: number;
+  
+  @Column
+  public image: number;
 
-  //Has Many Example
+  // Has Many Example
   // @HasMany(() => Permission)
   // public Permissions: Permission[];
 
