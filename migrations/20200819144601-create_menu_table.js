@@ -64,6 +64,8 @@ module.exports = {
         onDelete: 'cascade',
       },
       order: {
+        allowNull: false,
+        deaultValue: 0,
         type: Sequelize.INTEGER
       },
       ParentId: {

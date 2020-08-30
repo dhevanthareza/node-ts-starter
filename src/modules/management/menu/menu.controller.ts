@@ -59,9 +59,9 @@ MenuController.get(
   '/mine',
   asyncHandler(async (req: AppRequest, res: Response) => {
     const role = await Role.findByPk(req.user.RoleId)
-    console.log(role.code === 'developer' || role.code === 'admin')
     const menu = await Menu.findAll({
       where: { ParentId: null },
+      order: [['order', 'ASC'],['children', 'order', 'ASC']],
       include: [
         {
           model: Menu,
