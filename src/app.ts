@@ -8,7 +8,7 @@ import middlewareLoader from './middlewareLoader'
 import modelLoader from './modelLoader'
 import { sequelize } from './modules/core/config/database'
 import { ResponseService } from './modules/core/service/response.service'
-import controllerLoader from './routeLoader'
+import { RootRouter } from './router/router'
 
 config({ path: resolve(__dirname, '../../.env.example') })
 
@@ -22,7 +22,7 @@ class App {
     this.app = express()
     this.settings()
     middlewareLoader(this.app)
-    controllerLoader(this.app)
+    this.app.use(RootRouter)
     this.app.use((error: any, req: any, res: any, next: any) => {
       const message = error.message || 'Internal Server Error'
       const code = error.code || 'SERVER_ERROR'

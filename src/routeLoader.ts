@@ -1,6 +1,6 @@
 import express from 'express';
 import 'reflect-metadata';
-import AuthController from './modules/core/controllers/auth.controller';
+import AuthController from './modules/core/controller/auth.controller';
 import isAuthenticated from './modules/core/middlewares/auth.middleware';
 import ManagementRouter from './modules/management/management.router';
 import masterDataRouter from './modules/masterData/masterData.controller';

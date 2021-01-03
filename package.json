@@ -9,6 +9,7 @@
     "prestart": "yarn build",
     "start": "node .",
     "dev": "ts-node-dev src/app.ts",
+    "devtes": "ts-node-dev src/modules/masterData/barang/barang.controller.ts",
     "tsc:dev": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "sequelize-cli db:migrate --config src/config.json",

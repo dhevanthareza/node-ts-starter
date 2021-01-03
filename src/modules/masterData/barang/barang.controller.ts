@@ -1,59 +1,14 @@
-import { Response, Router } from 'express';
-import { AppRequest } from '../../../typings/request';
-import { asyncHandler } from '../../core/helpers/asyncHandler';
-import { fileMiddleware } from '../../core/middlewares/file.middleware';
-import { ResponseService } from '../../core/service/response.service';
-import ValidateService from '../../core/service/validate.service';
+import AppController from '../../core/controller/app.controller';
 import { MasterBarangRepository } from './barang.repository';
-import { barangCreateValidation } from './barang.validation';
 
-const MasterBarangController = Router();
-MasterBarangController.get(
-  '/',
-  asyncHandler(async (req: any, res: Response) => {
-    const barang = await MasterBarangRepository.getAll();
-    return ResponseService.success(res, barang, 'Berhasil mengambil daftar Data barang', 'SUCCESS');
-  }),
-);
-MasterBarangController.get(
-  '/datatable',
-  asyncHandler(async (req: AppRequest, res: Response) => {
-    const barang = await MasterBarangRepository.datatable(req.query.search);
-    return ResponseService.success(res, barang, 'Berhasil mengambil daftar Data barang', 'SUCCESS');
-  }),
-);
-MasterBarangController.get(
-  '/:id',
-  asyncHandler(async (req: any, res: Response) => {
-    const barang = await MasterBarangRepository.get(req.params.id);
-    return ResponseService.success(res, barang, 'Berhasil mengambil Data barang', 'SUCCESS');
-  }),
-);
-MasterBarangController.post(
-  '/',
-  fileMiddleware({ fields: [{ name: 'image', maxCount: 1 }] }),
-  asyncHandler(async (req: any, res: Response) => {
-    if (req.image) {
-      req.body.image = req.image.location;
-    }
-    await ValidateService(req, barangCreateValidation);
-    const barang = await MasterBarangRepository.create(req.user, req.body);
-    return ResponseService.success(res, barang, 'Berhasil membuat Data barang', 'SUCCESS');
-  }),
-);
-MasterBarangController.put(
-  '/:id',
-  asyncHandler(async (req: any, res: Response) => {
-    const barang = await MasterBarangRepository.update(req.user, req.params.id, req.body);
-    return ResponseService.success(res, barang, 'Berhasil update Data barang', 'SUCCESS');
-  }),
-);
-MasterBarangController.delete(
-  '/:id',
-  asyncHandler(async (req: any, res: Response) => {
-    const barang = await MasterBarangRepository.delete(req.user, req.params.id);
-    return ResponseService.success(res, barang, 'Berhasil menghapus Data barang', 'SUCCESS');
-  }),
-);
-
+class MasterBarangController extends AppController {
+  constructor() {
+    super({repository: MasterBarangRepository});
+  }
+  // TODO: create some function if needed or if you want override it, below is example
+  // async get(req: any, res: any) {
+  //   const data = 'overide';
+  //   res.json(data);
+  // }
+}
 export default MasterBarangController;

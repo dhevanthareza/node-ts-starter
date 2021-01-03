@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "dhevan007",
-    "database": "yuarsi",
+    "database": "starter",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "port": "3308",
